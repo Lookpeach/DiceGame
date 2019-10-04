@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public int n;
     //.............................
     public GameObject player;
+    public Sprite[] carRot;
     public GameObject[] waypoints;
     public int waypointIndex = 0;
     [SerializeField]
@@ -29,25 +30,29 @@ public class GameController : MonoBehaviour
     {
         textShowDice.text = DiceNumberTextScript.diceNumber.ToString();
         n = DiceNumberTextScript.diceNumber;
-        if (moveAllowed == true)
-        {
-            Move();
-        }
+    //    if (moveAllowed == true)
+    //    {
+    //        Move();
+    //    }
            
     }
-    private void Move()
-    {
-        if (waypointIndex <= waypoints.Length - 1)
-        {
-            transform.position = Vector2.MoveTowards(transform.position,
-            waypoints[waypointIndex].transform.position,
-            moveSpeed * Time.deltaTime);
+    //private void Move()
+    //{
+    //    if (waypointIndex <= waypoints.Length - 1)
+    //    {
+    //        transform.position = Vector2.MoveTowards(transform.position,
+    //        waypoints[waypointIndex].transform.position,
+    //        moveSpeed * Time.deltaTime);
 
-            if (transform.position == waypoints[waypointIndex].transform.position)
-            {
-                waypointIndex += 1;
-            }
-        }
+    //        if (transform.position == waypoints[waypointIndex].transform.position)
+    //        {
+    //            waypointIndex += 1;
+    //        }
+    //    }
+    //}
+    public void MovePlayer()
+    {
+
     }
 
     public void PlayGameButton()
@@ -64,10 +69,10 @@ public class GameController : MonoBehaviour
         transform.position = new Vector3(0, Random.Range(6, 9), 0);
         transform.rotation = Quaternion.Euler(Random.Range(0, 45), Random.Range(0, 45), Random.Range(0, 45));
         //transform.rotation = Quaternion.identity;
-        dice.GetComponent<Rigidbody>().AddForce(transform.up * Random.Range(2000, 2500));
+        dice.GetComponent<Rigidbody>().AddForce(transform.up * Random.Range(3000, 3500));
         dice.GetComponent<Rigidbody>().AddTorque(dirX, dirY, dirZ);
         //rb.AddForce(transform.up * Random.Range(300, 500));
         //rb.AddTorque(dirX, dirY, dirZ);
-        moveAllowed = true;
+        //moveAllowed = true;
     }
 }
