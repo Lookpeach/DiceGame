@@ -12,13 +12,17 @@ public class DiceScript : MonoBehaviour {
     public GameObject cubeDice, plane;
     public bool coroutineAllowed = true;
     private float last = 1.0f;
-    private int last_dice_number = 0;
+    public static int last_dice_number = 0;
     private int sum_dice = 0;
     public GameObject[] info;
 
     public GameObject player;
     public GameObject[] turnPoint;
     public Sprite[] car;
+
+    int stateBtn = 0;
+    float timeState = 5f;
+    public GameObject game, cvCon;
 
     // Use this for initialization
     void Start () {
@@ -27,6 +31,14 @@ public class DiceScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if(stateBtn >= 3)
+        {
+            timeState -= Time.deltaTime;
+            if(timeState <= 0)
+            {
+                cvCon.SetActive(true);
+            }  
+        }
 		diceVelocity = rb.velocity;
         if(player.transform.position == turnPoint[0].transform.position)
         {
@@ -62,10 +74,12 @@ public class DiceScript : MonoBehaviour {
 
                     //Debug.Log("Finish");
                     moveOn = false;
+                    
                     last = 1.0f;
                     last_dice_number = DiceNumberTextScript.diceNumber;
 
                     sum_dice += DiceNumberTextScript.diceNumber;
+                    stateBtn += 1;
                     if (sum_dice == 1)
                     {
                         info[0].SetActive(true);
@@ -161,7 +175,7 @@ public class DiceScript : MonoBehaviour {
 	}
 
     public void ClickDiceButton()
-    {
+    {  
         last = 1.0f;
         moveOn = true;
         //Debug.Log("Clicked 1");
@@ -175,8 +189,6 @@ public class DiceScript : MonoBehaviour {
             //StartCoroutine("RollTheDice");
             print("In If Condition");
         RollTheDice();
-        //DiceNumberTextScript.diceNumber = 2;
-        //GameControl.MovePlayer(1);
     }
 
     private void RollTheDice()
@@ -193,36 +205,5 @@ public class DiceScript : MonoBehaviour {
         rb.AddTorque(dirX, dirY, dirZ);
         clickDice = false;
         moveOn = true;
-        //yield return new WaitForSeconds(0.01f);
-        //Debug.Log("Yielding");
-
-        /* 
-        if (whosTurn == 1)
-        {
-            GameControl.MovePlayer(1);
-        } else if (whosTurn == -1)
-        {
-            GameControl.MovePlayer(2);
-        }
-        whosTurn *= -1;
-        */
     }
-
-    //public void BtnDice()
-    //{
-    //    cubeDice.SetActive(true);
-    //    plane.SetActive(false);
-    //    clickDice = true;
-    //    //DiceNumberTextScript.diceNumber = 0;
-    //    float dirX = Random.Range(0, 500);
-    //    float dirY = Random.Range(0, 500);
-    //    float dirZ = Random.Range(0, 500);
-    //    transform.position = new Vector3(0, Random.Range(6, 9), 0);
-    //    transform.rotation = Quaternion.Euler(Random.Range(0, 45), Random.Range(0, 45), Random.Range(0, 45));
-    //    //transform.rotation = Quaternion.identity;
-    //    rb.AddForce(transform.up * Random.Range(300, 500));
-    //    rb.AddTorque(dirX, dirY, dirZ);
-    //    GameControl.MovePlayer(1);
-    //    coroutineAllowed = true;
-    //}
 }

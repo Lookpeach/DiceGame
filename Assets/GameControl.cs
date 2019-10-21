@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour {
 
-    public GameObject canvasInfo, canvasGame;
+    public GameObject canvasInfo, canvasGame, canvasCong;
     private static GameObject whoWinsTextShadow, player1MoveText, player2MoveText;
 
     private static GameObject player1, player2;
@@ -90,6 +90,7 @@ public class GameControl : MonoBehaviour {
     {
         canvasInfo.SetActive(false);
         canvasGame.SetActive(true);
+        canvasCong.SetActive(false);
     }
 
 }

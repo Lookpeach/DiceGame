@@ -27,6 +27,7 @@ public class DiceNumberTextScript : MonoBehaviour {
             {
                 //StartCoroutine("RollTheDice");
                 GameControl.diceSideThrown = diceNumber;
+                DiceScript.last_dice_number = 0;
                 GameControl.MovePlayer(1);
 
                 whosTurn *= 1;
@@ -44,6 +45,7 @@ public class DiceNumberTextScript : MonoBehaviour {
         yield return new WaitForSeconds(0.05f);
 
         GameControl.diceSideThrown = diceNumber;
+        DiceScript.last_dice_number = 0;
         GameControl.MovePlayer(1);
 
         whosTurn *= 1;
